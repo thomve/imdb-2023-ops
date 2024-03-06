@@ -1,0 +1,6 @@
+{
+    "max_depth": 4, 
+    "alpha": 0.01,
+    "lambda": 1.0,
+    "eta": 0.2
+}

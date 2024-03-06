@@ -6,3 +6,4 @@ data:
 
 model:
   path: output/xgb.json
+  path_param: etc/model_param.json

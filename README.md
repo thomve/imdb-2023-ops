@@ -13,10 +13,21 @@ conda activate imdb
 
 ## Execution
 
+
+### Configure DVC
+
+```
+dvc init
+```
+
 ### Model training
 
 ```python
-python src/load_and_prepare_data.py
+python src/prepare_data.py
+```
+Then:
+```
+dvc add <path_to_data>
 ```
 Then
 ```
