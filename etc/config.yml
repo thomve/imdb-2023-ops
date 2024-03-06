@@ -1,0 +1,8 @@
+data:
+  raw:
+    path: data/imdb_data.csv
+  processed:
+    path: data/imdb_data_processed.csv
+
+model:
+  path: output/xgb.json

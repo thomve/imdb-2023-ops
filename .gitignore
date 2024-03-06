@@ -2,3 +2,8 @@
 
 *.csv
 *.model
+
+imdb-2023-ops.log
+
+data/*.csv
+output/*
