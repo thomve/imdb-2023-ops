@@ -1,8 +1,12 @@
+import logging
+import logging.config
 import pandas as pd
 
+from utils import load_config
 
-def load_and_prepare_data(path: str):
-    df = pd.read_csv(path)
+
+def load_and_prepare_data(path_raw: str, path_processed: str):
+    df = pd.read_csv(path_raw)
     df.set_index('id', inplace=True)
     df = df.dropna()
 
@@ -41,8 +45,10 @@ def load_and_prepare_data(path: str):
     df = pd.concat([df, directors[important_directors]], axis=1)
     df = df.drop('directors', axis = 1)
 
-    df.to_csv('data/imdb_data_processed.csv')
+    df.to_csv(path_processed)
     
 
 if __name__ == "__main__":
-    load_and_prepare_data("data/imdb_data.csv")
+    logging.config.fileConfig('logging.conf')
+    config = load_config('etc/config.yml')
+    load_and_prepare_data(config['data']['raw']['path'], config['data']['processed']['path'])

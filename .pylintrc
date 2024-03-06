@@ -1,0 +1,32 @@
+[MASTER]
+
+output-format = text
+reports = no
+persistent = no
+evaluation = 10.0
+ignore = CVS
+
+[MESSAGES CONTROL]
+
+disable=C0103, C0111, R0201
+
+[BASIC]
+
+min-similarity-lines=5
+max-line-length=120
+
+[FORMAT]
+
+max-line-length = 120
+
+[VARIABLES]
+
+dummy-variables-rgx=_+$|dummy|^ignored_|^unused_
+
+[TYPECHECK]
+
+ignore_missing_imports = yes
+
+[IMPORTS]
+
+extensions = .pyx

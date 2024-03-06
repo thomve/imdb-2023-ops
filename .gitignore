@@ -7,3 +7,4 @@ imdb-2023-ops.log
 
 data/*.csv
 output/*
+src/__pycache__
