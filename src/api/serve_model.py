@@ -9,12 +9,12 @@ app = FastAPI()
 
 
 model_name = "imdb-2023"
-model_version = 1
+model_version = 2
 model_uri = f"models:/{model_name}/{model_version}"
 
+# can we also use the model alias such as: model_uri = f"models:/{model_name}@champion"
 
 model = mlflow.pyfunc.load_model(model_uri=model_uri)
-
 
 @app.post("/predict")
 def predict(data: ImdbData):
@@ -34,8 +34,11 @@ def predict(data: ImdbData):
             data.Action,
             data.Crime]]
         prediction = model.predict(features).tolist()
+
         return {"prediction": prediction[0]}
+    
     except ValidationError as ve:
         raise HTTPException(status_code=422, detail=str(ve))
+    
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
