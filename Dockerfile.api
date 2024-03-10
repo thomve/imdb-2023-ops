@@ -1,0 +1,17 @@
+FROM continuumio/miniconda3:latest
+
+WORKDIR /api
+
+COPY etc/environment.yml /api/
+COPY src/api/serve_model.py /api/src/api/
+COPY src/api/schemas.py /api/src/api/
+
+RUN conda env create -f environment.yml
+
+SHELL ["conda", "run", "-n", "imdb", "/bin/bash", "-c"]
+
+VOLUME [ "/mlflow" ]
+
+EXPOSE 8080
+
+ENTRYPOINT [ "uvicorn", "src.api.serve_model:app", "--host", "0.0.0.0", "--port", "8080" ]
