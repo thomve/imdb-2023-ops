@@ -34,7 +34,7 @@ def train_model(path_data: str, path_model: str, path_model_param: str):
         features_list = ['isAdult', 'runtimeMinutes', 'averageRating', 'numVotes', 'budget', 'release_year', 'release_month', 'release_day', 'Adventure', 'Animation', 'Drama', 'Action', 'Crime']
         dtrain = xgb.DMatrix(df_train[features_list], label=df_train[target])
         dtest = xgb.DMatrix(df_test[features_list], label=df_test[target])
-        print(df_train[features_list].dtypes)
+
         # train the model
         params = load_json(path_model_param)
         mlflow.log_params(params)

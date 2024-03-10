@@ -8,5 +8,6 @@ imdb-2023-ops.log
 data/*.csv
 output/*
 src/__pycache__
+src/api/__pycache__
 
 mlruns
