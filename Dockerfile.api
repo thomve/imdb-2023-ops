@@ -1,16 +1,13 @@
-FROM continuumio/miniconda3:latest
+FROM python:3.9
 
 WORKDIR /api
 
-COPY etc/environment.yml /api/
-COPY src/api/serve_model.py /api/src/api/
-COPY src/api/schemas.py /api/src/api/
+COPY etc/requirements.api.txt /api/requirements.api.txt
+COPY src/api/ /api/src/api/
 
-RUN conda env create -f environment.yml
+RUN pip install --no-cache-dir --upgrade -r /api/requirements.api.txt
 
-SHELL ["conda", "run", "-n", "imdb", "/bin/bash", "-c"]
-
-VOLUME [ "/mlflow" ]
+VOLUME [ "/mlruns" ]
 
 EXPOSE 8080
 

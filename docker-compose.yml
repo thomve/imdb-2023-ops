@@ -3,9 +3,10 @@ version: '3.7'
 services:
   api_model:
     build:
-      context: .
       dockerfile: Dockerfile.api
     ports:
       - "8080:8080"
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=/mlruns
     volumes:
-      - /path/to/mlflow/artifacts:/mlflow
+      - /mlruns:/api/mlruns
