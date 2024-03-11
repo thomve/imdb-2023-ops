@@ -6,7 +6,5 @@ services:
       dockerfile: Dockerfile.api
     ports:
       - "8080:8080"
-    environment:
-      - MLFLOW_BACKEND_STORE_URI=/mlruns
     volumes:
-      - /mlruns:/api/mlruns
+      - /home/mlflow-backend-store:/home/mlflow-backend-store

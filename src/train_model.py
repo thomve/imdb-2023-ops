@@ -24,10 +24,11 @@ def setup_mlflow_experiment(experiment_name: str):
         logging.info(f"Created new experiment '{experiment_name}' with ID: {experiment_id}")
         return experiment_id
 
-def train_model(path_data: str, path_model: str, path_model_param: str):
+def train_model(config):
+    mlflow.set_tracking_uri(config['mlflow']['backend_store_path'])
     eid = setup_mlflow_experiment(experiment_name="imdb-2023")
     with mlflow.start_run(experiment_id=eid):
-        df = pd.read_csv(path_data)
+        df = pd.read_csv(config['data']['processed']['path'])
         df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
 
         target = 'net_profit'
@@ -36,12 +37,12 @@ def train_model(path_data: str, path_model: str, path_model_param: str):
         dtest = xgb.DMatrix(df_test[features_list], label=df_test[target])
 
         # train the model
-        params = load_json(path_model_param)
+        params = load_json(config['model']['path_param'])
         mlflow.log_params(params)
         evallist = [(dtrain, 'train'), (dtest, 'eval')]
         num_round = 100
         bst = xgb.train(params, dtrain, num_round, evallist)
-        bst.save_model(path_model)
+        bst.save_model(config['model']['path'])
         mlflow.xgboost.log_model(xgb_model=bst, artifact_path='xgb-model-01')
 
         # evaluate model
@@ -54,6 +55,4 @@ def train_model(path_data: str, path_model: str, path_model_param: str):
 if __name__ == "__main__":
     logging.config.fileConfig('logging.conf')
     config = load_config('etc/config.yml')
-    train_model(config['data']['processed']['path'], 
-                config['model']['path'],
-                config['model']['path_param'])
+    train_model(config)

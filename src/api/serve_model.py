@@ -14,6 +14,7 @@ model_uri = f"models:/{model_name}/{model_version}"
 
 # can we also use the model alias such as: model_uri = f"models:/{model_name}@champion"
 
+mlflow.set_tracking_uri("file:///home/mlflow-backend-store")
 model = mlflow.pyfunc.load_model(model_uri=model_uri)
 
 @app.post("/predict")

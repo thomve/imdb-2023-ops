@@ -7,3 +7,6 @@ data:
 model:
   path: output/xgb.json
   path_param: etc/model_param.json
+
+mlflow:
+  backend_store_path: file:///home/mlflow-backend-store
