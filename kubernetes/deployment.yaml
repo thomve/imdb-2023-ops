@@ -17,3 +17,10 @@ spec:
         image: imdb-image
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: mlflow-runs
+          mountPath: /mlruns
+      volumes:
+      - name: mlflow-runs
+        hostPath:
+          path: /home/mlflow-backend-store

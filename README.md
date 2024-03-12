@@ -101,3 +101,13 @@ Build the docker image
 ```
 docker build -t imdb-image -f Dockerfile.api .
 ```
+
+Then
+```
+kubectl apply -f kubernetes/deployment.yaml
+```
+
+Access the application with:
+```
+minikube ip
+```
