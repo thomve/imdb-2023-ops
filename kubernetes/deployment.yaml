@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imdb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imdb-app
+  template:
+    metadata:
+      labels:
+        app: imdb-app
+    spec:
+      containers:
+      - name: imdb-container
+        image: imdb-image
+        ports:
+        - containerPort: 8080
