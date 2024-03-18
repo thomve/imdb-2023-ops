@@ -7,6 +7,7 @@ COPY src/api/ /api/src/api/
 
 RUN pip install --no-cache-dir --upgrade -r /api/requirements.api.txt
 
-EXPOSE 8080
+# EXPOSE 8080
 
-ENTRYPOINT [ "uvicorn", "src.api.serve_model:app", "--host", "0.0.0.0", "--port", "8080" ]
+ENTRYPOINT [ "echo", "hello" ]
+# ENTRYPOINT [ "uvicorn", "src.api.serve_model:app", "--host", "0.0.0.0", "--port", "8080" ]

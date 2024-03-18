@@ -111,3 +111,9 @@ Access the application with:
 ```
 minikube ip
 ```
+
+
+List images in minikube:
+```
+minikube image ls
+```

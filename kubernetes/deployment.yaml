@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: imdb-deployment
+  name: imdb-app
 spec:
   replicas: 1
   selector:
@@ -13,14 +13,16 @@ spec:
         app: imdb-app
     spec:
       containers:
-      - name: imdb-container
+      - name: imdb-app
         image: imdb-image
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
-        volumeMounts:
-        - name: mlflow-runs
-          mountPath: /mlruns
-      volumes:
-      - name: mlflow-runs
-        hostPath:
-          path: /home/mlflow-backend-store
+      #   volumeMounts:
+      #   - name: mlflow-backend-store
+      #     mountPath: /data
+      # volumes:
+      # - name: mlflow-backend-store
+      #   hostPath:
+      #     path: /home/mlflow-backend-store
+      #     type: Directory

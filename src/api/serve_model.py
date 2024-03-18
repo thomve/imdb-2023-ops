@@ -1,20 +1,19 @@
 import mlflow
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import ValidationError
 
-from src.api.schemas import ImdbData
+from schemas import ImdbData
 
 
 app = FastAPI()
 
 
-model_name = "imdb-2023"
-model_version = 2
-model_uri = f"models:/{model_name}/{model_version}"
+model_name = "imdb-model"
+model_version = 1
+model_uri = f"models:/{model_name}@champion"
 
-# can we also use the model alias such as: model_uri = f"models:/{model_name}@champion"
-
-mlflow.set_tracking_uri("file:///home/mlflow-backend-store")
+mlflow.set_tracking_uri("/home/mlflow-backend-store")
 model = mlflow.pyfunc.load_model(model_uri=model_uri)
 
 @app.post("/predict")
@@ -43,3 +42,7 @@ def predict(data: ImdbData):
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+
+if __name__ == "__main__":
+    uvicorn.run("serve_model:app", port=8080, log_level="info")
