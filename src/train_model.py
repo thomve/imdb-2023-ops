@@ -12,9 +12,29 @@ from utils import load_config, load_json
 
 
 def compute_rmse(y: np.array, y_pred: np.array):
+    """
+    Compute the root mean squared error (RMSE) between the true values (y) and the predicted values (y_pred).
+
+    Parameters:
+    y (np.array): Array of true values.
+    y_pred (np.array): Array of predicted values.
+
+    Returns:
+    float: The root mean squared error (RMSE) between y and y_pred.
+    """
     return np.sqrt(mean_squared_error(y, y_pred))
 
 def setup_mlflow_experiment(experiment_name: str):
+    """
+    Sets up an MLflow experiment with the given experiment name.
+
+    Parameters:
+    experiment_name (str): The name of the experiment.
+
+    Returns:
+    int: The ID of the experiment.
+
+    """
     experiment = mlflow.get_experiment_by_name(experiment_name)
     if experiment:
         logging.info(f"Experiment '{experiment_name}' already exists (ID: {experiment.experiment_id})")
@@ -25,6 +45,15 @@ def setup_mlflow_experiment(experiment_name: str):
         return experiment_id
 
 def train_model(config):
+    """
+    Trains an XGBoost model using the provided configuration.
+
+    Args:
+        config (dict): A dictionary containing the configuration parameters.
+
+    Returns:
+        None
+    """
     mlflow.set_tracking_uri(config['mlflow']['backend_store_path'])
     eid = setup_mlflow_experiment(experiment_name="imdb-2023")
     with mlflow.start_run(experiment_id=eid):
